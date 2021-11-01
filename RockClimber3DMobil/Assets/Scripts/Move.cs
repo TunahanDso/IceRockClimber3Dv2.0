@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class Move : MonoBehaviour
@@ -27,7 +28,7 @@ public class Move : MonoBehaviour
         anim = GetComponent<Animator>();
         skor = 0;
         xLocate = 0;
-        moveSpeed = 1.3f;
+        moveSpeed = 1.6f;
         controller = GetComponent<CharacterController>();
         
     }
@@ -39,7 +40,14 @@ public class Move : MonoBehaviour
             Destroy(other);
            
         }
+        if (other.gameObject.tag == "Finish")
+        {
+            SceneManager.LoadScene("SampleScene");
+            skorText.text = "0";
+            skor = 0;
 
+
+        }
 
     }
 
@@ -47,7 +55,7 @@ public class Move : MonoBehaviour
     {
         if (isGrounded)
         {
-            gravNew.y = Mathf.Sqrt(0.25f * +2f * gravity / 14000);
+            gravNew.y = Mathf.Sqrt(0.25f * +2f * gravity / 1000);
         }
        
     }
@@ -78,7 +86,7 @@ public class Move : MonoBehaviour
             gravNew.y -= gravity * Time.deltaTime / 150;
 
         }
-
+       
         jump.onClick.AddListener(jb);
         right.onClick.AddListener(rb);
         left.onClick.AddListener(lb);
